@@ -25,10 +25,17 @@ class Command(BaseCommand):
             dao_file.write('\n')
 
         # Create the service.py file in the app's directory
-        service_file_path = os.path.join(app_dir, 'service.py')
+        service_file_path = os.path.join(app_dir, 'services.py')
         with open(service_file_path, 'w') as service_file:
             service_file.write('# Add your service code here\n')
             service_file.write('\n')
+
+        # Create the serializers.py file in the app's directory
+        serializers_file_path = os.path.join(app_dir, 'serializers.py')
+        with open(serializers_file_path, 'w') as serializers_file:
+            serializers_file.write('from rest_framework import serializers\n\n')
+            serializers_file.write('# Add your serializers here\n')
+            serializers_file.write('\n')
 
         # Create the urls.py file in the app's directory
         urls_file_path = os.path.join(app_dir, 'urls.py')
