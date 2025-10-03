@@ -1,9 +1,10 @@
-
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .services import AuthService
-from .serializers import LoginSerializer, TokenSerializer
+from .services import AuthService, UserReadService
+from .serializers import LoginSerializer, TokenSerializer, UserSerializer
+
+
 # Create your views here.
 
 
@@ -24,3 +25,14 @@ class LoginAPIView(APIView):
 
         tokens = self.auth_service.get_tokens_for_user(user)
         return Response(TokenSerializer(tokens).data, status=status.HTTP_200_OK)
+
+
+class UsersListAPIView(APIView):
+    serializer_class = UserSerializer
+    user_read_service = UserReadService()
+
+    def get(self, request):
+        users = self.user_read_service.get_all_users()
+        serialized_data = self.serializer_class(users, many=True)
+        return Response(serialized_data.data)
+

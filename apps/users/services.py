@@ -1,6 +1,8 @@
 # Add your service code here
 from __future__ import annotations
 from typing import Optional
+
+from django.db.models import QuerySet, Model
 from rest_framework_simplejwt.tokens import RefreshToken
 from core.service import ReadService, WriteService
 from .dao import UserDAO
@@ -15,6 +17,9 @@ class UserReadService(ReadService):
 
     def get_by_username(self, username: str) -> User | None:
         return self.dao.find_one({'username': username})
+
+    def get_all_users(self) -> QuerySet[Model]:
+        return self.dao.all()
 
 
 class UserWriteService(WriteService):
